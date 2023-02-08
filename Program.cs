@@ -1,4 +1,6 @@
-﻿namespace CubicMatrixSearch
+﻿using System.Diagnostics.Metrics;
+
+namespace CubicMatrixSearch
 {
     internal class Program
     {
@@ -26,7 +28,7 @@
                 {
                     counter = matrix[x, y] == ofIntrest ? counter + 1 : 0;
                     print(visualMatrix, x, y);
-                    if (counter == searchLength) Console.Write("WIN");
+                    WinCheck(counter, searchLength);
                 }
             };
             visualMatrix = (string[,])matrix.Clone();
@@ -39,7 +41,7 @@
                 {
                     counter = matrix[x, y] == ofIntrest ? counter + 1 : 0;
                     print(visualMatrix, x, y);
-                    if (counter == searchLength) Console.Write("WIN");
+                    WinCheck(counter, searchLength);
                 }
             };
             visualMatrix = (string[,])matrix.Clone();
@@ -53,17 +55,18 @@
                 {
                     counter = matrix[xy, xy + m] == ofIntrest ? counter + 1 : 0;
                     print(visualMatrix, xy, xy + m);
-                    if (counter == searchLength) Console.Write("WIN");
+                    WinCheck(counter, searchLength);
                 }
                 counter = 0;
+
                 for (int xy = 0; xy < matrixBase - m; xy++)
                 {
                     counter = matrix[xy + m, xy] == ofIntrest ? counter + 1 : 0;
                     print(visualMatrix, xy + m, xy);
-                    if (counter == searchLength) Console.Write("WIN");
+                    WinCheck(counter, searchLength);
                 }
-
                 counter = 0;
+
                 visualMatrix = (string[,])matrix.Clone();
 
                 // Diagonal /
@@ -71,25 +74,30 @@
                 {
                     counter = matrix[(matrixBase - 1) - xy, xy + m] == ofIntrest ? counter + 1 : 0;
                     print(visualMatrix, (matrixBase - 1) - xy, xy + m);
-                    if (counter == searchLength) Console.Write("WIN");
+                    WinCheck(counter, searchLength);
                 }
                 counter = 0;
+
                 for (int xy = 0; xy < matrixBase - m; xy++)
                 {
                     counter = matrix[(matrixBase - 1) - xy - m, xy] == ofIntrest ? counter + 1 : 0;
                     print(visualMatrix, (matrixBase - 1) - xy - m, xy);
-                    if (counter == searchLength) Console.Write("WIN");
+                    WinCheck(counter, searchLength);
                 }
-
                 counter = 0;
             }
+        }
+
+        private static void WinCheck(int counter, int searchLength)
+        {
+            if (counter == searchLength) Console.Write("WIN");
         }
 
         private static void print(string[,] visualMatrix, int x, int y)
         {
             visualMatrix[x, y] = " ";
             var boardBase = Math.Sqrt(visualMatrix.Length);
-            int viewSpeed = 300;
+            int viewSpeed = 50;
             for (int xv = 0; xv < boardBase; xv++)
             {
                 Console.WriteLine();
