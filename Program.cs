@@ -20,9 +20,9 @@
             var counter = 0;
 
             // Horizontal scan
-            for (var x = 0; x < Math.Sqrt(matrix.Length); x++)
+            for (var x = 0; x < matrixBase; x++)
             {
-                for (var y = 0; y < Math.Sqrt(matrix.Length); y++)
+                for (var y = 0; y < matrixBase; y++)
                 {
                     counter = matrix[x, y] == ofIntrest ? counter + 1 : 0;
                     print(visualMatrix, x, y);
@@ -33,9 +33,9 @@
 
             // Vertical scan
             counter = 0;
-            for (var y = 0; y < Math.Sqrt(matrix.Length); y++)
+            for (var y = 0; y < matrixBase; y++)
             {
-                for (var x = 0; x < Math.Sqrt(matrix.Length); x++)
+                for (var x = 0; x < matrixBase; x++)
                 {
                     counter = matrix[x, y] == ofIntrest ? counter + 1 : 0;
                     print(visualMatrix, x, y);
@@ -51,12 +51,14 @@
                 // Diagonal \
                 for (int xy = 0; xy < matrixBase - m; xy++)
                 {
+                    counter = matrix[xy, xy + m] == ofIntrest ? counter + 1 : 0;
                     print(visualMatrix, xy, xy + m);
                     if (counter == searchLength) Console.Write("WIN");
                 }
                 counter = 0;
                 for (int xy = 0; xy < matrixBase - m; xy++)
                 {
+                    counter = matrix[xy + m, xy] == ofIntrest ? counter + 1 : 0;
                     print(visualMatrix, xy + m, xy);
                     if (counter == searchLength) Console.Write("WIN");
                 }
@@ -67,12 +69,14 @@
                 // Diagonal /
                 for (int xy = 0; xy < matrixBase - m; xy++)
                 {
+                    counter = matrix[(matrixBase - 1) - xy, xy + m] == ofIntrest ? counter + 1 : 0;
                     print(visualMatrix, (matrixBase - 1) - xy, xy + m);
                     if (counter == searchLength) Console.Write("WIN");
                 }
                 counter = 0;
                 for (int xy = 0; xy < matrixBase - m; xy++)
                 {
+                    counter = matrix[(matrixBase - 1) - xy - m, xy] == ofIntrest ? counter + 1 : 0;
                     print(visualMatrix, (matrixBase - 1) - xy - m, xy);
                     if (counter == searchLength) Console.Write("WIN");
                 }
@@ -85,7 +89,7 @@
         {
             visualMatrix[x, y] = " ";
             var boardBase = Math.Sqrt(visualMatrix.Length);
-            int viewSpeed = 100;
+            int viewSpeed = 300;
             for (int xv = 0; xv < boardBase; xv++)
             {
                 Console.WriteLine();
