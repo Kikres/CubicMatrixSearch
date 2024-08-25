@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.Metrics;
 
-namespace CubicMatrixSearch
+namespace MatrixSearch
 {
     internal class Program
     {
